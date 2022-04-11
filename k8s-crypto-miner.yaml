@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: crypto-server
   name: crypto-server
@@ -10,10 +9,8 @@ spec:
   selector:
     matchLabels:
       app: crypto-server
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: crypto-server
     spec:
