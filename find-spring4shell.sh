@@ -14,8 +14,9 @@ LIBRARY_SEARCH_PATTERNS=("spring-core-5\.3\.[0-9]\..*"
     "spring-core-[0-4]\.[0-9]*\.[0-9]*\..*")
 
 function analyzeArchive {
-    ARCHIVE=$1
-    APP=$2
+    local ARCHIVE=$1
+    local APP=$2
+    local n=""
 
     for n in ${LIBRARY_SEARCH_PATTERNS[@]}; do
         doAnalyzeArchive $n $ARCHIVE $APP
@@ -23,8 +24,10 @@ function analyzeArchive {
 }
 
 function doAnalyzeArchive {
-    LIBRARY_PATTERN=$1
-    FILE=$(basename $ARCHIVE)
+    local LIBRARY_PATTERN=$1
+    local ARCHIVE=$2
+    local APP=$3
+    local FILE=$(basename $ARCHIVE)
     if [[ $FILE =~ $LIBRARY_PATTERN ]]
     then
         if [[ $APP == "" ]]
@@ -37,15 +40,17 @@ function doAnalyzeArchive {
 }
 
 function analyzeApplication {
-    analyzeArchive $1 ""
+    local APP=$1
+    local ARCHIVE=""
+    analyzeArchive $APP ""
 
-    for ARCHIVE in $(tar -tf $1 '*.jar' 2>/dev/null)
+    for ARCHIVE in $(tar -tf $APP '*.jar' 2>/dev/null)
     do
-        analyzeArchive $ARCHIVE $1
+        analyzeArchive $ARCHIVE $APP
     done
 }
 
-for APP in $(find . -type f -name \*.jar -or  -type f -name \*.war 2>/dev/null)
+for a in $(find . -type f -name \*.jar -or  -type f -name \*.war 2>/dev/null)
 do
-    analyzeApplication $APP
+    analyzeApplication $a
 done
