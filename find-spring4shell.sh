@@ -6,12 +6,16 @@
 # - 5.3.0 to 5.3.17
 # - 5.2.0 to 5.2.19
 # - Older, unsupported versions are also affected
-LIBRARY_SEARCH_PATTERNS=("spring-core-5\.3\.[0-9]\..*"
-    "spring-core-5\.3\.1[0-7]\..*"
-    "spring-core-5\.2\.[0-9]\..*"
-    "spring-core-5\.2\.1[0-9]\..*"
-    "spring-core-5\.[0-1]\.[0-9]*\..*"
-    "spring-core-[0-4]\.[0-9]*\.[0-9]*\..*")
+LIBRARY_SEARCH_PATTERNS=("spring-core-5\.3\.[0-9]\..*" #spring-core-5.3.0-9
+    "spring-core-5\.3\.1[0-7]\..*"                     #spring-core-5.3.10-17
+    "spring-core-5\.2\.[0-9]\..*"                      #spring-core-5.2.0-9
+    "spring-core-5\.2\.1[0-9]\..*"                     #spring-core-5.2.10-19
+    "spring-core-5\.[0-1]\.[0-9]*"                     #spring-core-5.0-1
+    "spring-core-[0-4]\.[0-9]*\.[0-9]*\..*"            #spring-core-0-4
+    "log4j-api-2\.[0-9]\..*"                           #log4j-api-2.0-9
+    "log4j-api-2\.1[0-6]\..*"                          #log4j-api-2.10-16
+    "log4j-api-2\.17\.0.*"                             #log4j-api-2.17.0
+    )
 
 function analyzeArchive {
     local ARCHIVE=$1
